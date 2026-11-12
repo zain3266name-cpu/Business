@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apex Digital — Modern Business & Strategy Consulting</title>
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ==========================================================================
+       1. CSS VARIABLES & RESET (Modern Design System)
+       ========================================================================== */
+    :root {
+      /* Color Palette */
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --bg-dark: #0f172a;
+      --bg-dark-card: #1e293b;
+
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --text-light: #f8fafc;
+
+      --brand-primary: #2563eb;
+      --brand-primary-hover: #1d4ed8;
+      --brand-secondary: #4f46e5;
+      --brand-accent: #0ea5e9;
+      --brand-soft: #eff6ff;
+
+      --border-light: #e2e8f0;
+      --success: #10b981;
+      --error: #ef4444;
+
+      /* Typography */
+      --font-heading: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+      /* Spacing & Layout */
+      --container-max: 1200px;
+      --nav-height: 76px;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-full: 9999px;
+
+      /* Shadows */
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.07), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 20px 35px -10px rgba(37, 99, 235, 0.14);
+
+      /* Transitions */
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: var(--nav-height);
+      font-size: 16px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      background-color: var(--bg-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      line-height: 1.2;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    ul {
+      list-style: none;
+    }
+
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ==========================================================================
+       2. REUSABLE UTILITY CLASSES & BUTTONS
+       ========================================================================== */
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .section {
+      padding: 4.5rem 0;
+    }
+
+    .section-alt {
+      background-color: var(--bg-secondary);
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 3.25rem;
+    }
+
+    .section-badge {
+      display: inline-block;
+      padding: 0.375rem 0.95rem;
+      background-color: var(--brand-soft);
+      color: var(--brand-primary);
+      font-weight: 600;
+      font-size: 0.8125rem;
+      border-radius: var(--radius-full);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.85rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.65rem;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      min-height: 48px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      color: #ffffff;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, 0.25);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+    }
+
+    .btn-outline {
+      background-color: #ffffff;
+      color: var(--text-primary);
+      border-color: var(--border-light);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--brand-primary);
+      color: var(--brand-primary);
+      background-color: var(--brand-soft);
+      transform: translateY(-2px);
+    }
+
+    /* Scroll Reveal Animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ==========================================================================
+       3. NAVBAR (Sticky + Mobile Drawer)
+       ========================================================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--nav-height);
+      background-color: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid transparent;
+      z-index: 1000;
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled {
+      border-bottom-color: var(--border-light);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--text-primary);
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .nav-link {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      transition: var(--transition);
+      position: relative;
+      padding: 0.25rem 0;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--brand-primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--brand-primary);
+      transition: width 0.25s ease;
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-cta-desktop {
+      display: none;
+    }
+
+    /* Mobile Hamburger Button */
+    .mobile-toggle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: transparent;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      gap: 5px;
+      z-index: 1002;
+    }
+
+    .mobile-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background-color: var(--text-primary);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+
+    .mobile-toggle.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .mobile-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-toggle.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Mobile Navigation Overlay & Drawer */
+    @media (max-width: 899px) {
+      .nav-menu {
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1.5rem 1.25rem 2rem;
+        gap: 0.5rem;
+        border-bottom: 1px solid var(--border-light);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-120%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.35s ease, opacity 0.25s ease;
+      }
+
+      .nav-menu.open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .nav-link {
+        display: block;
+        padding: 0.85rem 1rem;
+        font-size: 1.05rem;
+        border-radius: var(--radius-sm);
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        background-color: var(--brand-soft);
+      }
+
+      .nav-link::after {
+        display: none;
+      }
+
+      .nav-mobile-btn {
+        margin-top: 0.75rem;
+        width: 100%;
+      }
+    }
+
+    /* ==========================================================================
+       4. HERO SECTION
+       ========================================================================== */
+    .hero {
+      padding-top: calc(var(--nav-height) + 3rem);
+      padding-bottom: 4.5rem;
+      background: radial-gradient(circle at top right, #eff6ff 0%, #ffffff 55%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 1rem;
+      background-color: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-pill-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: var(--success);
+    }
+
+    .hero-title {
+      font-size: clamp(2.15rem, 5vw, 3.65rem);
+      font-weight: 800;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .text-gradient {
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      max-width: 560px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .metric-value {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text-primary);
+    }
+
+    .metric-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
+
+    /* Hero Right Visual Dashboard Card */
+    .hero-visual {
+      position: relative;
+    }
+
+    .dashboard-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .dashboard-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dashboard-dots span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #cbd5e1;
+    }
+
+    .dashboard-dots span:first-child { background-color: #f87171; }
+    .dashboard-dots span:nth-child(2) { background-color: #fbbf24; }
+    .dashboard-dots span:nth-child(3) { background-color: #34d399; }
+
+    .growth-tag {
+      background-color: #ecfdf5;
+      color: #059669;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+    }
+
+    .chart-bars {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 170px;
+      gap: 0.75rem;
+      padding: 1rem 0.5rem 0;
+      border-bottom: 1px solid var(--border-light);
+      margin-bottom: 1.25rem;
+    }
+
+    .bar-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      height: 100%;
+      justify-content: flex-end;
+    }
+
+    .bar {
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+      background: linear-gradient(180deg, var(--brand-primary), #93c5fd);
+      transition: height 0.8s ease;
+    }
+
+    .bar.highlight {
+      background: linear-gradient(180deg, var(--brand-secondary), var(--brand-primary));
+    }
+
+    .bar-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .dashboard-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.875rem;
+    }
+
+    /* ==========================================================================
+       5. ABOUT SECTION
+       ========================================================================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-card-stack {
+      background: linear-gradient(135deg, var(--bg-dark), #1e293b);
+      color: #ffffff;
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      position: relative;
+      box-shadow: var(--shadow-md);
+    }
+
+    .about-quote {
+      font-size: 1.2rem;
+      font-weight: 600;
+      line-height: 1.55;
+      margin-bottom: 1.75rem;
+      color: #f1f5f9;
+    }
+
+    .about-author {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .author-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-family: var(--font-heading);
+    }
+
+    .about-checklist {
+      display: grid;
+      gap: 1rem;
+      margin: 1.75rem 0 2rem;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .check-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background-color: var(--brand-soft);
+      color: var(--brand-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       6. SERVICES SECTION (Cards Grid)
+       ========================================================================== */
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .service-card {
+      background-color: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .service-card:hover {
+      transform: translateY(-6px);
+      border-color: #bfdbfe;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .service-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background-color: var(--brand-soft);
+      color: var(--brand-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.35rem;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-icon {
+      background-color: var(--brand-primary);
+      color: #ffffff;
+    }
+
+    .service-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+
+    .service-text {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .service-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--brand-primary);
+    }
+
+    .service-link:hover {
+      gap: 0.65rem;
+    }
+
+    /* ==========================================================================
+       7. WHY CHOOSE US SECTION
+       ========================================================================== */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .why-card {
+      background-color: var(--bg-secondary);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      border: 1px solid transparent;
+      transition: var(--transition);
+    }
+
+    .why-card:hover {
+      background-color: #ffffff;
+      border-color: var(--border-light);
+      box-shadow: var(--shadow-md);
+    }
+
+    .why-number {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--brand-primary);
+      background-color: var(--brand-soft);
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+    }
+
+    .why-card h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .why-card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+    }
+
+    /* ==========================================================================
+       8. CONTACT SECTION & FORM
+       ========================================================================== */
+    .contact-wrapper {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      background-color: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      box-shadow: var(--shadow-md);
+    }
+
+    .contact-info {
+      background: linear-gradient(145deg, var(--bg-dark), #1e293b);
+      color: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .contact-info h3 {
+      color: #ffffff;
+      font-size: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .contact-info > p {
+      color: #cbd5e1;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-details {
+      display: grid;
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+    }
+
+    .contact-item-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #60a5fa;
+    }
+
+    .contact-item-label {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      display: block;
+    }
+
+    .contact-item-value {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .form-group label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-primary);
+      background-color: var(--bg-secondary);
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--brand-primary);
+      background-color: #ffffff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .error-text {
+      color: var(--error);
+      font-size: 0.8rem;
+      display: none;
+    }
+
+    .form-group.has-error .form-control {
+      border-color: var(--error);
+    }
+
+    .form-group.has-error .error-text {
+      display: block;
+    }
+
+    .form-feedback {
+      display: none;
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+      background-color: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      font-weight: 500;
+      font-size: 0.92rem;
+    }
+
+    .form-feedback.show {
+      display: block;
+    }
+
+    /* ==========================================================================
+       9. FOOTER
+       ========================================================================== */
+    .footer {
+      background-color: var(--bg-dark);
+      color: #cbd5e1;
+      padding: 4rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-brand .logo {
+      color: #ffffff;
+      margin-bottom: 1rem;
+    }
+
+    .footer-brand p {
+      color: #94a3b8;
+      font-size: 0.92rem;
+      max-width: 320px;
+      margin-bottom: 1.5rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      transition: var(--transition);
+    }
+
+    .social-btn:hover {
+      background-color: var(--brand-primary);
+      transform: translateY(-2px);
+    }
+
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 1rem;
+      margin-bottom: 1.15rem;
+    }
+
+    .footer-links {
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .footer-links a {
+      color: #94a3b8;
+      font-size: 0.92rem;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+      padding-left: 4px;
+    }
+
+    .footer-bottom {
+      padding-top: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      align-items: center;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    /* ==========================================================================
+       10. RESPONSIVE BREAKPOINTS (Tablet & Desktop)
+       ========================================================================== */
+    @media (min-width: 640px) {
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .why-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .form-row {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 900px) {
+      .section {
+        padding: 6rem 0;
+      }
+
+      .mobile-toggle,
+      .nav-mobile-btn {
+        display: none;
+      }
+
+      .nav-cta-desktop {
+        display: inline-flex;
+      }
+
+      .hero {
+        padding-top: calc(var(--nav-height) + 4.5rem);
+        padding-bottom: 6rem;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1.15fr 0.85fr;
+      }
+
+      .about-grid {
+        grid-template-columns: 0.95fr 1.05fr;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .why-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 0.85fr 1.15fr;
+        padding: 2.5rem;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================================================================
+       1. NAVIGATION BAR
+       ======================================================================== -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-container">
+      <!-- Brand Logo -->
+      <a href="#home" class="logo" aria-label="Apex Digital Home">
+        <span class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+            <polyline points="2 17 12 22 22 17"></polyline>
+            <polyline points="2 12 12 17 22 12"></polyline>
+          </svg>
+        </span>
+        <span>ApexDigital</span>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#home" class="nav-link active">Home</a></li>
+          <li><a href="#about" class="nav-link">About</a></li>
+          <li><a href="#services" class="nav-link">Services</a></li>
+          <li><a href="#why-us" class="nav-link">Why Us</a></li>
+          <li><a href="#contact" class="nav-link">Contact</a></li>
+          <li><a href="#contact" class="btn btn-primary nav-mobile-btn">Get Free Consultation</a></li>
+        </ul>
+      </nav>
+
+      <!-- Desktop Call to Action -->
+      <a href="#contact" class="btn btn-primary nav-cta-desktop">Get Started</a>
+
+      <!-- Mobile Hamburger Menu Button -->
+      <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle Menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- ======================================================================
+         2. HERO SECTION
+         ====================================================================== -->
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <!-- Left Content -->
+        <div class="hero-content reveal">
+          <div class="hero-pill">
+            <span class="hero-pill-dot"></span>
+            <span>Trusted by 350+ Growing Companies</span>
+          </div>
+
+          <h1 class="hero-title">
+            Scale Your Business With <span class="text-gradient">Smart Digital Strategy</span>
+          </h1>
+
+          <p class="hero-description">
+            We partner with ambitious brands to build high-converting websites, streamline digital operations, and accelerate sustainable revenue growth.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contact" class="btn btn-primary">
+              <span>Book a Free Strategy Call</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </a>
+            <a href="#services" class="btn btn-outline">Explore Services</a>
+          </div>
+
+          <div class="hero-metrics">
+            <div>
+              <div class="metric-value">98%</div>
+              <div class="metric-label">Client Retention</div>
+            </div>
+            <div>
+              <div class="metric-value">3.4x</div>
+              <div class="metric-label">Average ROI</div>
+            </div>
+            <div>
+              <div class="metric-value">12+</div>
+              <div class="metric-label">Years Experience</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Visual Card -->
+        <div class="hero-visual reveal">
+          <div class="dashboard-card">
+            <div class="dashboard-header">
+              <div class="dashboard-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="growth-tag">+142% YoY Growth</span>
+            </div>
+
+            <h3 style="font-size: 1.05rem; margin-bottom: 0.25rem;">Quarterly Revenue Performance</h3>
+            <p style="font-size: 0.82rem; color: var(--text-muted);">Client benchmark across digital channels</p>
+
+            <div class="chart-bars" aria-hidden="true">
+              <div class="bar-col">
+                <div class="bar" style="height: 38%;"></div>
+                <span class="bar-label">Q1</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar" style="height: 55%;"></div>
+                <span class="bar-label">Q2</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar" style="height: 68%;"></div>
+                <span class="bar-label">Q3</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar" style="height: 82%;"></div>
+                <span class="bar-label">Q4</span>
+              </div>
+              <div class="bar-col">
+                <div class="bar highlight" style="height: 98%;"></div>
+                <span class="bar-label">Now</span>
+              </div>
+            </div>
+
+            <div class="dashboard-footer">
+              <span style="color: var(--text-secondary);">Conversion Rate</span>
+              <strong style="color: var(--brand-primary); font-size: 1rem;">6.84% (+2.1%)</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         3. ABOUT SECTION
+         ====================================================================== -->
+    <section class="section section-alt" id="about">
+      <div class="container about-grid">
+        <!-- Left Feature Card -->
+        <div class="about-card-stack reveal">
+          <span class="section-badge" style="background: rgba(255,255,255,0.12); color: #93c5fd;">Our Philosophy</span>
+          <p class="about-quote">
+            “Great businesses don’t grow by accident. They grow when clear strategy, thoughtful design, and reliable engineering work together.”
+          </p>
+          <div class="about-author">
+            <div class="author-avatar">SM</div>
+            <div>
+              <div style="font-weight: 700; color: #ffffff;">Sarah Mitchell</div>
+              <div style="font-size: 0.85rem; color: #94a3b8;">Founder & Managing Partner</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Text Content -->
+        <div class="reveal">
+          <span class="section-badge">About Apex Digital</span>
+          <h2 class="section-title">We Help Modern Businesses Turn Ambition Into Measurable Results</h2>
+          <p class="section-subtitle" style="margin-bottom: 1.25rem;">
+            Founded in 2014, Apex Digital is a full-service business and technology consultancy dedicated to helping startups and established enterprises thrive in a digital-first economy.
+          </p>
+
+          <div class="about-checklist">
+            <div class="check-item">
+              <span class="check-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+              <div>
+                <strong>Data-Driven Decision Making:</strong> Every campaign and product feature is backed by real customer analytics.
+              </div>
+            </div>
+
+            <div class="check-item">
+              <span class="check-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+              <div>
+                <strong>Transparent Collaboration:</strong> Weekly sprint updates, clear milestones, and zero hidden fees.
+              </div>
+            </div>
+
+            <div class="check-item">
+              <span class="check-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </span>
+              <div>
+                <strong>Built for Long-Term Scale:</strong> Clean architecture and adaptable workflows that evolve with your team.
+              </div>
+            </div>
+          </div>
+
+          <a href="#contact" class="btn btn-primary">Partner With Our Team</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         4. SERVICES SECTION
+         ====================================================================== -->
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-badge">Our Services</span>
+          <h2 class="section-title">End-to-End Solutions Tailored to Your Growth</h2>
+          <p class="section-subtitle">
+            From brand positioning to custom web applications, we deliver the core capabilities modern organizations need to outperform competitors.
+          </p>
+        </div>
+
+        <div class="services-grid">
+          <!-- Service 1 -->
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <h3 class="service-title">Web Design & Development</h3>
+            <p class="service-text">
+              Fast, responsive, and accessible websites crafted with clean code and modern UI/UX to maximize visitor trust and conversions.
+            </p>
+            <a href="#contact" class="service-link">Request a Quote &rarr;</a>
+          </article>
+
+          <!-- Service 2 -->
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="20" x2="18" y2="10"></line>
+                <line x1="12" y1="20" x2="12" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="14"></line>
+              </svg>
+            </div>
+            <h3 class="service-title">Growth & Digital Strategy</h3>
+            <p class="service-text">
+              Actionable go-to-market roadmaps, customer acquisition funnels, and conversion rate optimization tailored to your industry.
+            </p>
+            <a href="#contact" class="service-link">Request a Quote &rarr;</a>
+          </article>
+
+          <!-- Service 3 -->
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                <path d="M2 17l10 5 10-5"></path>
+                <path d="M2 12l10 5 10-5"></path>
+              </svg>
+            </div>
+            <h3 class="service-title">Brand Identity & UI/UX</h3>
+            <p class="service-text">
+              Memorable visual identities, design systems, and intuitive product interfaces that set your company apart in crowded markets.
+            </p>
+            <a href="#contact" class="service-link">Request a Quote &rarr;</a>
+          </article>
+
+          <!-- Service 4 -->
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </div>
+            <h3 class="service-title">SEO & Content Marketing</h3>
+            <p class="service-text">
+              Technical search optimization and authoritative content strategies that drive qualified organic traffic month after month.
+            </p>
+            <a href="#contact" class="service-link">Request a Quote &rarr;</a>
+          </article>
+
+          <!-- Service 5 -->
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <h3 class="service-title">Cloud & Workflow Automation</h3>
+            <p class="service-text">
+              Eliminate repetitive manual tasks by integrating your CRM, billing, and customer support tools into one seamless workflow.
+            </p>
+            <a href="#contact" class="service-link">Request a Quote &rarr;</a>
+          </article>
+
+          <!-- Service 6 -->
+          <article class="service-card reveal">
+            <div class="service-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <h3 class="service-title">Executive Advisory</h3>
+            <p class="service-text">
+              On-demand fractional leadership and technical due diligence to guide founders through critical scaling milestones.
+            </p>
+            <a href="#contact" class="service-link">Request a Quote &rarr;</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         5. WHY CHOOSE US SECTION
+         ====================================================================== -->
+    <section class="section section-alt" id="why-us">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-badge">Why Choose Us</span>
+          <h2 class="section-title">Built on Trust, Speed & Measurable Impact</h2>
+          <p class="section-subtitle">
+            We combine boutique agency agility with enterprise-level rigor so you never have to compromise between quality and speed.
+          </p>
+        </div>
+
+        <div class="why-grid">
+          <div class="why-card reveal">
+            <span class="why-number">01</span>
+            <h3>Senior-Only Talent</h3>
+            <p>Work directly with seasoned strategists, designers, and engineers—never handed off to junior trainees.</p>
+          </div>
+
+          <div class="why-card reveal">
+            <span class="why-number">02</span>
+            <h3>Rapid Delivery</h3>
+            <p>Our streamlined agile process takes projects from initial discovery to production launch in weeks, not months.</p>
+          </div>
+
+          <div class="why-card reveal">
+            <span class="why-number">03</span>
+            <h3>ROI-First Approach</h3>
+            <p>We measure success by leads generated, revenue unlocked, and hours saved—not vanity metrics.</p>
+          </div>
+
+          <div class="why-card reveal">
+            <span class="why-number">04</span>
+            <h3>Dedicated Support</h3>
+            <p>Post-launch optimization, security monitoring, and proactive guidance whenever your business needs us.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
